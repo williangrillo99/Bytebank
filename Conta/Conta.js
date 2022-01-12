@@ -1,8 +1,14 @@
+
+//clase abstrada, nunca pode ser instanciada     
 export class Conta{
     constructor(saldoInicial,cliente, agencia){
+        if(this.constructor == Conta){
+            throw new Erro("voce nao deveria abrir esse tipo de conta, pois é uma classe abstrada")
+        }
         this._saldo = saldoInicial;
         this._cliente = cliente;
         this._agencia = agencia;
+        console.log(this.constructor)
     }
      
     set cliente(novoValor){
@@ -18,24 +24,20 @@ export class Conta{
     get saldo(){
         return this._saldo;
     }
+
+    //metado abstrado
     sacar(valor){
-        let taxa = 1
-        if(this._tipo == "corrente"){
-            taxa = 1.1;
-        }
-        if(this._tipo == "salario"){
-            taxa = 1.01;
-        }
-        if(this._tipo == "empresa"){
-            taxa = 1.15;
-        }
+        throw new Erro("O metodo Sacar da conta é abstrado")
+    }
+    _sacar(){
         const valorSacado = taxa * valor;
         if(this._saldo >= valorSacado){
             this._saldo -=valorSacado;
             return valorSacado;
         }
+
+        return 0;
     }
-      
     depositar(valor){
         if(valor < 0){
             return;
